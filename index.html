@@ -1,114 +1,241 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pennings Vermietung</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Monteurzimmer & Ferienwohnungen in Ostfriesland – Sauber, flexibel, fair. Pennings Vermietung."
+    />
+    <title>Pennings Vermietung – Monteurzimmer & Wohnungen</title>
+
     <style>
-        body { font-family: 'Poppins', 'Arial', sans-serif; margin: 0; padding: 0; background-color: #fafafa; color: #333; }
-        .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #ffffff;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-        .logo { display: flex; align-items: center; font-size: 36px; font-weight: bold; color: #002244; margin-bottom: 15px; }
-        .logo img { width: 60px; height: 60px; margin-right: 15px; }
-        .menu { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
-        .menu a {
-            text-decoration: none;
-            color: #002244;
-            font-size: 21px;
-            font-weight: 500;
-            padding: 10px 20px;
-            position: relative;
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-        .menu a:hover {
-            color: #446699;
-            transform: translateY(-1px);
-        }
-        .menu a:hover, .menu a.active { color: #6699cc; }
-        .spacer { height: 60px; }
-        .hero {
-    position: relative;
-    background: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    text-align: center;
-    overflow: hidden;
-}}
-        .hero h1 { font-size: 42px; margin: 0; }
-        .section { max-width: 1100px; margin: 80px auto; padding: 0 20px; text-align: center; }
-        .section h2 { font-size: 28px; color: #002244; margin-bottom: 10px; }
-        .section p { font-size: 18px; color: #555; line-height: 1.7; }
-        footer { background-color: #002244; color: white; text-align: center; padding: 40px 20px; margin-top: 80px; font-size: 14px; }
+      :root {
+        --brand: #002244;
+        --brand-2: #6699cc;
+        --fg: #333;
+        --muted: #555;
+        --bg: #fafafa;
+        --card: #ffffff;
+        --ring: rgba(0, 34, 68, 0.12);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: "Poppins", Arial, sans-serif; margin: 0; color: var(--fg); background: var(--bg); line-height: 1.6; }
+      a { color: var(--brand); text-decoration: none; }
+      img { max-width: 100%; display: block; }
+
+      .topbar { position: sticky; top: 0; z-index: 1000; background: var(--card); border-bottom: 1px solid #e6e6e6; }
+      .container { max-width: 1100px; margin-inline: auto; padding: 0 20px; }
+      .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; gap: 16px; }
+      .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 22px; color: var(--brand); }
+      .brand img { width: 40px; height: 40px; }
+
+      .menu { display: flex; gap: 8px; align-items: center; }
+      .menu a { font-weight: 500; font-size: 16px; padding: 8px 12px; border-radius: 10px; transition: transform .2s ease, color .2s ease, background-color .2s ease; }
+      .menu a:hover { color: var(--brand-2); background: #f3f7fb; transform: translateY(-1px); }
+
+      .hamburger { display: none; background: transparent; border: 0; padding: 8px; border-radius: 10px; }
+      .hamburger:focus { outline: 3px solid var(--ring); }
+      @media (max-width: 860px) {
+        .menu { display: none; position: absolute; right: 20px; top: 64px; flex-direction: column; background: var(--card); padding: 10px; border: 1px solid #e8e8e8; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.06); }
+        .menu.open { display: flex; }
+        .hamburger { display: inline-flex; }
+      }
+
+      .hero { position: relative; min-height: 56vh; display: grid; place-items: center; text-align: center; color: white; background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat; isolation: isolate; }
+      .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.45)); z-index: -1; }
+      .hero h1 { font-size: clamp(28px, 4vw, 48px); margin: 0; }
+      .hero p { font-size: clamp(16px, 2.2vw, 20px); margin: 10px 0 22px; }
+      .cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 12px; background: #ffffff; color: var(--brand); font-weight: 600; box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+
+      section { scroll-margin-top: 90px; }
+      .section { padding: 64px 0; }
+      .section h2 { color: var(--brand); font-size: 28px; margin: 0 0 10px; }
+      .section p.lead { color: var(--muted); font-size: 18px; margin: 0 0 24px; }
+
+      .grid { display: grid; gap: 20px; }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      @media (max-width: 900px) { .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 640px) { .grid-3 { grid-template-columns: 1fr; } }
+
+      .card { background: var(--card); border: 1px solid #eee; border-radius: 14px; overflow: clip; box-shadow: 0 6px 16px rgba(0,0,0,.04); transition: transform .15s ease; }
+      .card:hover { transform: translateY(-2px); }
+      .card-body { padding: 14px; }
+      .tag { display: inline-block; font-size: 12px; background: #f3f7fb; color: var(--brand); padding: 4px 8px; border-radius: 999px; }
+      .card-body .small { font-size: 14px; color: var(--fg); font-weight: 500; }
+
+      .contact-ways { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 0; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; border: 1px solid #e8e8e8; background: white; font-weight: 600; }
+      .btn:hover { background: #f8f8f8; }
+
+      form { display: grid; gap: 12px; margin-top: 22px; background: var(--card); border: 1px solid #eee; padding: 16px; border-radius: 14px; }
+      label { font-weight: 600; }
+      input, textarea { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd; background: #fff; }
+      input:focus, textarea:focus { outline: 3px solid var(--ring); border-color: var(--brand-2); }
+      textarea { min-height: 120px; resize: vertical; }
+
+      footer { background: var(--brand); color: white; padding: 36px 0; margin-top: 40px; }
+      footer .cols { display: grid; gap: 20px; grid-template-columns: 2fr 1fr; }
+      @media (max-width: 720px) { footer .cols { grid-template-columns: 1fr; } }
+      .small { font-size: 13px; color: #e6eef7; }
+
+      .mt-8 { margin-top: 32px; }
+      .mt-4 { margin-top: 16px; }
     </style>
-</head>
-<body>
-    <div class="topbar">
-        <div class="logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="Haus Logo" />
-            <span>Pennings Vermietung</span>
-        </div>
-        <div class="menu">
-            <a href="index.html" class="active">Home</a>
-            <a href="unterkuenfte.html">Unterkünfte</a>
-            <a href="ueber_uns.html">Über uns</a>
-            <a href="kontakt.html">Kontakt</a>
-        </div>
-    </div>
-    <div class="hero">
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);"></div>
-        <div style="position: relative; z-index: 1;">
-        <h1>Willkommen bei Pennings Vermietung</h1>
-        </div>
-    </div>
-    
 
-    <div class="section">
-        <h2>Komfortable Monteur- und Ferienwohnungen</h2>
-        <p>Willkommen auf unserer Website. Hier finden Sie Informationen über unsere Unterkünfte für Monteure und Handwerker in [Ort].</p>
-    </div>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
 
-
-        <div style="display: flex; align-items: flex-start; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
-            <img src="https://source.unsplash.com/400x250/?apartment" alt="Wohnung" style="flex: 1 1 300px; max-width: 300px; width: 100%; height: auto; border-radius: 6px; object-fit: cover;">
-            <div style="flex: 2; font-size: 16px; color: #444;">
-                <h3>Moderne Ausstattung</h3>
-                <p>Unsere Wohnungen sind voll ausgestattet mit allem, was Sie für einen angenehmen Aufenthalt benötigen – inklusive WLAN und Küche.</p>
-            </div>
-        </div>
-        <div style="display: flex; align-items: flex-start; gap: 24px; margin-bottom: 40px; flex-wrap: wrap-reverse; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
-            <div style="flex: 2;">
-                <h3>Ruhige Lage</h3>
-                <p>Genießen Sie erholsame Nächte in einer ruhigen Umgebung – ideal nach einem langen Arbeitstag oder zur Entspannung im Urlaub.</p>
-            </div>
-            <img src="https://source.unsplash.com/400x250/?house" alt="Haus" style="flex: 1 1 400px; max-width: 400px; width: 100%; height: auto; border-radius: 8px;">
-        </div>
-        <div style="display: flex; align-items: center; gap: 40px; margin-bottom: 60px; flex-wrap: wrap;">
-            <img src="https://source.unsplash.com/400x250/?kitchen" alt="Küche" style="flex: 1 1 400px; max-width: 400px; width: 100%; height: auto; border-radius: 8px;">
-            <div style="flex: 2;">
-                <h3>Eigene Küche</h3>
-                <p>Für Selbstversorger ideal: jede Wohnung verfügt über eine eigene Küche mit allem, was man braucht.</p>
-            </div>
-        </div>
-    </div>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a class="brand" href="#home">
+          <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="Logo Haus" />
+          <span>Pennings Vermietung</span>
+        </a>
+        <nav>
+          <button class="hamburger" id="hamburger">☰</button>
+          <div class="menu" id="menu">
+            <a href="#home">Home</a>
+            <a href="#unterkuenfte">Unterkünfte</a>
+            <a href="#preise">Preise</a>
+            <a href="#ueberuns">Über uns</a>
+            <a href="#kontakt">Kontakt</a>
+            <a href="#impressum">Impressum</a>
+          </div>
+        </nav>
+      </div>
+    </header>
 
-</div>
+    <main id="home">
+      <section class="hero">
+        <div class="container">
+          <h1>Monteurzimmer & Wohnungen in Ostfriesland</h1>
+          <p>Sauber. Ruhig. Flexibel – ideal für Teams & Handwerker.</p>
+          <a class="cta" href="#kontakt">Jetzt anfragen</a>
+        </div>
+      </section>
+
+      <section id="unterkuenfte" class="section">
+        <div class="container">
+          <h2>Unsere Unterkünfte</h2>
+          <p class="lead">Gemütliche, voll ausgestattete Wohnungen.</p>
+          <div class="grid grid-3">
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=60" alt="Schlafzimmer" />
+              <div class="card-body">
+                <span class="tag">2–4 Personen</span>
+                <h3>Wohnung Nord</h3>
+                <p class="small">WLAN · Parkplatz · TV · Gemeinschaftsküche</p>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=60" alt="Küche" />
+              <div class="card-body">
+                <span class="tag">4–6 Personen</span>
+                <h3>Wohnung Mitte</h3>
+                <p class="small">Große Küche · Waschmöglichkeit · Ruhige Lage</p>
+              </div>
+            </article>
+            <article class="card">
+              <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1200&q=60" alt="Bad" />
+              <div class="card-body">
+                <span class="tag">2–3 Personen</span>
+                <h3>Wohnung Süd</h3>
+                <p class="small">Eigenes Bad · Schreibtisch · Schnelles Internet</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="preise" class="section">
+        <div class="container">
+          <h2>Preise & Konditionen</h2>
+          <p class="lead">Transparente Preise – Staffelungen nach Aufenthaltsdauer & Teamgröße.</p>
+          <div class="grid grid-3 mt-4">
+            <div class="card"><div class="card-body"><h3>Kurzzeit (1–6 Nächte)</h3><p class="small">ab <strong>€ XX</strong> pro Person/Nacht · Mindestbelegung 2</p></div></div>
+            <div class="card"><div class="card-body"><h3>Woche (7–27 Nächte)</h3><p class="small">ab <strong>€ XX</strong> pro Person/Nacht · Rabatt möglich</p></div></div>
+            <div class="card"><div class="card-body"><h3>Langzeit (ab 28 Nächten)</h3><p class="small">individuelles Angebot · Staffelpreise für Teams</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ueberuns" class="section">
+        <div class="container">
+          <h2>Über uns</h2>
+          <p class="lead">Familiengeführt aus Weener – wir wissen, was Monteure brauchen: flexible Anreise, stabiles WLAN, bequeme Betten und unkomplizierte Abwicklung.</p>
+        </div>
+      </section>
+
+      <section id="kontakt" class="section">
+        <div class="container">
+          <h2>Kontakt</h2>
+          <p class="lead">Am schnellsten per WhatsApp oder Telefon – wir antworten fix.</p>
+          <div class="contact-ways">
+            <a class="btn" href="tel:+491718225923">📞 Anrufen</a>
+            <a class="btn" href="mailto:mietservice.penning@gmail.com">✉️ E-Mail</a>
+            <a class="btn" href="https://wa.me/491718225923">💬 WhatsApp</a>
+          </div>
+
+          <form class="mt-4" action="mailto:mietservice.penning@gmail.com" method="post" enctype="text/plain">
+            <label for="name">Name</label>
+            <input id="name" name="Name" required placeholder="Ihr Name" />
+            <label for="firma">Firma (optional)</label>
+            <input id="firma" name="Firma" placeholder="Firmenname" />
+            <label for="personen">Personen & Zeitraum</label>
+            <input id="personen" name="Personen/Zeitraum" placeholder="z. B. 5 Personen, 14.–28. Sept" />
+            <label for="nachricht">Nachricht</label>
+            <textarea id="nachricht" name="Nachricht" placeholder="Ihre Anforderungen"></textarea>
+            <button class="btn" type="submit">Anfrage senden</button>
+          </form>
+
+          <div class="mt-8">
+            <iframe src="https://www.google.com/maps?q=Weener&output=embed" width="100%" height="280" style="border:0; border-radius:14px" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="impressum" class="section">
+        <div class="container">
+          <h2>Impressum</h2>
+          <p class="small">Angaben gemäß § 5 TMG:</p>
+          <p>
+            <strong>Pennings Vermietung</strong><br />
+            Inhaber: Penning<br />
+            Lüchtenborger Ring 17<br />
+            26826 Weener<br />
+          </p>
+          <p>
+            Telefon: <a href="tel:+491718225923">0171 8225923</a><br />
+            E-Mail: <a href="mailto:mietservice.penning@gmail.com">mietservice.penning@gmail.com</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
     <footer>
-        &copy; 2025 Pennings Vermietung - Alle Rechte vorbehalten.
+      <div class="container cols">
+        <div>
+          <strong>Pennings Vermietung</strong>
+          <p class="small">Komfortable Monteurzimmer & Wohnungen in Ostfriesland.</p>
+        </div>
+        <div>
+          <p class="small">© <span id="year"></span> Pennings Vermietung · Alle Rechte vorbehalten.</p>
+          <p class="small"><a style="color:#fff;text-decoration:underline" href="#datenschutz">Datenschutz (folgt)</a></p>
+        </div>
+      </div>
     </footer>
-</body>
+
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const menu = document.getElementById('menu');
+      hamburger?.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
