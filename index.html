@@ -179,15 +179,23 @@
             <a class="btn" href="https://wa.me/491718225923">💬 WhatsApp</a>
           </div>
 
-          <form class="mt-4" action="mailto:mietservice.penning@gmail.com" method="post" enctype="text/plain">
+          <!-- Kontaktformular mit Formspree -->
+          <form class="mt-4" action="https://formspree.io/f/xyzpqqlg" method="POST">
             <label for="name">Name</label>
-            <input id="name" name="Name" required placeholder="Ihr Name" />
+            <input id="name" name="name" required placeholder="Ihr Name" />
+
             <label for="firma">Firma (optional)</label>
-            <input id="firma" name="Firma" placeholder="Firmenname" />
+            <input id="firma" name="firma" placeholder="Firmenname" />
+
             <label for="personen">Personen & Zeitraum</label>
-            <input id="personen" name="Personen/Zeitraum" placeholder="z. B. 5 Personen, 14.–28. Sept" />
+            <input id="personen" name="personen" placeholder="z. B. 5 Personen, 14.–28. Sept" />
+
+            <label for="email">E-Mail</label>
+            <input id="email" type="email" name="email" placeholder="name@firma.de" />
+
             <label for="nachricht">Nachricht</label>
-            <textarea id="nachricht" name="Nachricht" placeholder="Ihre Anforderungen"></textarea>
+            <textarea id="nachricht" name="nachricht" placeholder="Ihre Anforderungen"></textarea>
+
             <button class="btn" type="submit">Anfrage senden</button>
           </form>
 
