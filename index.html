@@ -192,7 +192,9 @@
 
             <label for="email">E-Mail</label>
             <input id="email" type="email" name="email" placeholder="name@firma.de" />
-
+            
+            <input type="hidden" name="_subject" value="Neue Anfrage von {{name}}" />
+            
             <label for="nachricht">Nachricht</label>
             <textarea id="nachricht" name="nachricht" placeholder="Ihre Anforderungen"></textarea>
 
