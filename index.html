@@ -340,15 +340,24 @@
     <!-- FullCalendar JS + Google Calendar plugin -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.15/index.global.min.js"></script>
 
     <!-- Init Verfügbarkeitskalender -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const el = document.getElementById('calendar');
         if (el && window.FullCalendar) {
+          const CAL_ID = '3e61916ae41e47ac40c64d1bb49e647f623c87315698e884048122fc252c19dc@group.calendar.google.com';
+          const API_KEY = 'AIzaSyDIaH92Gf4bMfJZFCLgLtiq_auqhog2_dU';
+          const ICS_URL = `https://calendar.google.com/calendar/ical/${encodeURIComponent(CAL_ID)}/public/basic.ics`;
+
+          // Versuch, Plugin-Objekte robust zu finden (je nach Global-Name)
+          const googlePlugin = window.FullCalendarGoogleCalendar || (window.FullCalendar && FullCalendar.GoogleCalendar) || null;
+          const icalPlugin = window.FullCalendarICalendar || (window.FullCalendar && (FullCalendar.ICalendar || FullCalendar.Icalendar)) || null;
+          const plugins = [googlePlugin, icalPlugin].filter(Boolean);
+
           const calendar = new FullCalendar.Calendar(el, {
-            // WICHTIG: Plugin registrieren, sonst werden Google-Events nicht geladen
-            plugins: [ FullCalendar.GoogleCalendar ],
+            plugins,
             timeZone: 'Europe/Berlin',
             locale: 'de',
             firstDay: 1,
@@ -358,10 +367,18 @@
             displayEventTime: false,
             eventDisplay: 'background',
             eventBackgroundColor: '#b0c4de',
-            googleCalendarApiKey: 'AIzaSyDIaH92Gf4bMfJZFCLgLtiq_auqhog2_dU',
-            // eine Event-Quelle: öffentlicher Google-Kalender
-            events: { googleCalendarId: '3e61916ae41e47ac40c64d1bb49e647f623c87315698e884048122fc252c19dc@group.calendar.google.com' },
-            eventClick: (info) => { info.jsEvent.preventDefault(); } // keine Popups
+            googleCalendarApiKey: API_KEY,
+            eventSources: [
+              // Primär: Google Calendar API
+              { id: 'gcal', googleCalendarId: CAL_ID },
+            ],
+            eventSourceFailure(err) {
+              // Fallback: .ics-Feed laden, wenn Google blockt (Rechte/API-Key)
+              if (!calendar.getEventSourceById('ics')) {
+                calendar.addEventSource({ id: 'ics', url: ICS_URL, format: 'ics' });
+              }
+            },
+            eventClick: (info) => { info.jsEvent.preventDefault(); }
           });
           try { calendar.render(); } catch (e) { el.innerHTML = '<div style="padding:12px;color:#b00020;">Kalender konnte nicht geladen werden. Bitte API-Key/Kalender-ID prüfen.</div>'; }
         }
