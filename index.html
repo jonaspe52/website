@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Monteurzimmer & Ferienwohnungen in Ostfriesland – Sauber, flexibel, fair. Mietservice Penning."
+      content="Monteurzimmer & Monteurwohnungen in Weener–Möhlenwarf: 2 Schlafzimmer, 4 Betten, 80 m², Sauna, Klimaanlage, WLAN, großer Garten. Sauber, ruhig, flexibel."
     />
-    <title>Mietservice Penning – Monteurzimmer & Wohnungen</title>
+    <title>Mietservice Penning – Monteurzimmer & Wohnungen in Weener–Möhlenwarf</title>
 
     <style>
       :root {
@@ -18,6 +18,7 @@
         --bg: #fafafa;
         --card: #ffffff;
         --ring: rgba(0, 34, 68, 0.12);
+        --ok: #0aa56c;
       }
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
@@ -63,7 +64,8 @@
       .card:hover { transform: translateY(-2px); }
       .card-body { padding: 14px; }
       .tag { display: inline-block; font-size: 12px; background: #f3f7fb; color: var(--brand); padding: 4px 8px; border-radius: 999px; }
-      .card-body .small { font-size: 14px; color: var(--fg); font-weight: 500; }
+      .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; background: #f3f7fb; color: var(--brand); padding: 6px 10px; border-radius: 999px; border: 1px solid #e8eef7; }
+      .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 
       .contact-ways { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 0; }
       .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; border: 1px solid #e8e8e8; background: white; font-weight: 600; }
@@ -71,31 +73,63 @@
 
       form { display: grid; gap: 12px; margin-top: 22px; background: var(--card); border: 1px solid #eee; padding: 16px; border-radius: 14px; }
       label { font-weight: 600; }
-      input, textarea { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd; background: #fff; }
-      input:focus, textarea:focus { outline: 3px solid var(--ring); border-color: var(--brand-2); }
+      input, textarea, select { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd; background: #fff; }
+      input:focus, textarea:focus, select:focus { outline: 3px solid var(--ring); border-color: var(--brand-2); }
       textarea { min-height: 120px; resize: vertical; }
+
+      .notice { background: #f3fbf6; border: 1px solid #d6f3e4; padding: 12px 14px; border-radius: 12px; color: #0c7a52; display:none; margin-top: 12px; }
+      .notice.show { display:block; }
 
       footer { background: var(--brand); color: white; padding: 36px 0; margin-top: 40px; }
       footer .cols { display: grid; gap: 20px; grid-template-columns: 2fr 1fr; }
       @media (max-width: 720px) { footer .cols { grid-template-columns: 1fr; } }
-      .small { font-size: 13px; color: #e6eef7; }
+      .small { font-size: 13px; color: #4eb7ff; }
 
       .mt-8 { margin-top: 32px; }
       .mt-4 { margin-top: 16px; }
+
+      /* simple price table */
+      .price-line { display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed #e9eef4; padding:8px 0; }
+      .price-line strong { font-size: 18px; }
+      .muted { color: var(--muted); font-size: 14px; }
     </style>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD for LodgingBusiness / short -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Mietservice Penning – Monteurwohnungen Weener–Möhlenwarf",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Weener",
+        "addressRegion": "Niedersachsen",
+        "postalCode": "26826",
+        "streetAddress": "Lüchtenborger Ring 17"
+      },
+      "telephone": "+49 171 8225923",
+      "amenityFeature": [
+        {"@type":"LocationFeatureSpecification","name":"Sauna","value":true},
+        {"@type":"LocationFeatureSpecification","name":"Klimaanlage","value":true},
+        {"@type":"LocationFeatureSpecification","name":"WLAN","value":true},
+        {"@type":"LocationFeatureSpecification","name":"Kaminofen","value":true},
+        {"@type":"LocationFeatureSpecification","name":"Garten","value":true}
+      ]
+    }
+    </script>
   </head>
 
   <body>
     <header class="topbar">
       <div class="container nav">
-        <a class="brand" href="#home">
+        <a class="brand" href="#home" aria-label="Zur Startseite">
           <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="Logo Haus" />
           <span>Mietservice Penning</span>
         </a>
         <nav>
-          <button class="hamburger" id="hamburger">☰</button>
+          <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="menu" aria-label="Menü öffnen">☰</button>
           <div class="menu" id="menu">
             <a href="#home">Home</a>
             <a href="#unterkuenfte">Unterkünfte</a>
@@ -111,39 +145,51 @@
     <main id="home">
       <section class="hero">
         <div class="container">
-          <h1>Monteurzimmer & Wohnungen in Ostfriesland</h1>
-          <p>Sauber. Ruhig. Flexibel – ideal für Teams & Handwerker.</p>
-          <a class="cta" href="#kontakt">Jetzt anfragen</a>
+          <h1>Monteurwohnungen in Weener–Möhlenwarf</h1>
+          <p>2 Schlafzimmer · 4 Betten · 80&nbsp;m² · Sauna · Klima · WLAN · großer Garten</p>
+          <a class="cta" href="#kontakt">Jetzt für Monteure anfragen</a>
         </div>
       </section>
 
       <section id="unterkuenfte" class="section">
         <div class="container">
           <h2>Unsere Unterkünfte</h2>
-          <p class="lead">Gemütliche, voll ausgestattete Wohnungen.</p>
-          <div class="grid grid-3">
+          <p class="lead">Gemütlich, sauber & komplett ausgestattet – ideal für Teams und Handwerker.</p>
+
+          <div class="badges" aria-label="Ausstattung">
+            <span class="badge">🔥 Ofen</span>
+            <span class="badge">🧖 Sauna</span>
+            <span class="badge">❄️ Klimaanlage</span>
+            <span class="badge">📶 WLAN</span>
+            <span class="badge">🌳 Großer Garten</span>
+            <span class="badge">🛏️ 2 SZ / 4 Betten</span>
+            <span class="badge">🍳 Küche & Essbereich</span>
+            <span class="badge">🚗 Parken vor Ort</span>
+          </div>
+
+          <div class="grid grid-3 mt-4">
             <article class="card">
-              <img src="Schlafzimmer 2.jpg" alt="Schlafzimmer" />
+              <img src="Schlafzimmer 2.jpg" alt="Schlafzimmer mit bequemen Betten" />
               <div class="card-body">
                 <span class="tag">2–4 Personen</span>
                 <h3>Schlafzimmer</h3>
-                <p class="small">Gemütliches Bett · Fernseher · Schreibtisch</p>
+                <p class="small">Bequeme Betten · Verdunkelung · Stauraum</p>
               </div>
             </article>
             <article class="card">
-              <img src="Wohnbereich.jpg" alt="Wohnung Mitte Wohnbereich" />
+              <img src="Wohnbereich.jpg" alt="Heller Wohnbereich mit Ofen" />
               <div class="card-body">
-                <span class="tag">4–6 Personen</span>
+                <span class="tag">Aufenthalt</span>
                 <h3>Wohnbereich</h3>
-                <p class="small">WLAN · Ofen · Fernseher</p>
+                <p class="small">WLAN · Ofen · TV · Sofas</p>
               </div>
             </article>
             <article class="card">
-              <img src="Küche_Essbereich.jpg" alt="Wohnung Süd Küche" />
+              <img src="Küche_Essbereich.jpg" alt="Küche und Essbereich" />
               <div class="card-body">
-                <span class="tag">2–3 Personen</span>
-                <h3>Küche und Essbereich</h3>
-                <p class="small">Gemeinschaftsküche · Backofen · Esstisch</p>
+                <span class="tag">Selbstversorgung</span>
+                <h3>Küche & Essbereich</h3>
+                <p class="small">Backofen · Herd · Kühlschrank · Esstisch</p>
               </div>
             </article>
           </div>
@@ -152,13 +198,40 @@
 
       <section id="preise" class="section">
         <div class="container">
-          <h2>Preise & Konditionen</h2>
-          <p class="lead">Transparente Preise – Staffelungen nach Aufenthaltsdauer & Teamgröße.</p>
+          <h2>Preise & Konditionen (Monteur-Teams)</h2>
+          <p class="lead">Transparente Staffelpreise – fair für Kurz- und Langzeit.</p>
+
           <div class="grid grid-3 mt-4">
-            <div class="card"><div class="card-body"><h3>Kurzzeit (1–6 Nächte)</h3><p class="small">ab <strong>€ 25</strong> pro Person/Nacht · Mindestbelegung 2</p></div></div>
-            <div class="card"><div class="card-body"><h3>Woche (7–28 Nächte)</h3><p class="small">ab <strong>€ 20</strong> pro Person/Nacht · Rabatt möglich</p></div></div>
-            <div class="card"><div class="card-body"><h3>Langzeit (ab 28 Nächten)</h3><p class="small">individuelles Angebot · Staffelpreise für Teams</p></div></div>
+            <div class="card">
+              <div class="card-body">
+                <h3>Kurzzeit</h3>
+                <p class="muted">1–6 Nächte</p>
+                <div class="price-line"><span>Preis p. P. / Nacht</span><strong>25–30&nbsp;€</strong></div>
+                <div class="price-line"><span>Beispiel (4 Pers.)</span><strong>100–120&nbsp;€ / Nacht</strong></div>
+                <p class="small">Flexible Anreise · inkl. WLAN & Nebenkosten</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h3>Woche</h3>
+                <p class="muted">7–28 Nächte</p>
+                <div class="price-line"><span>Preis p. P. / Nacht</span><strong>22–25&nbsp;€</strong></div>
+                <div class="price-line"><span>Beispiel (4 Pers.)</span><strong>88–100&nbsp;€ / Nacht</strong></div>
+                <p class="small">Rabatte nach Teamgröße möglich</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h3>Langzeit</h3>
+                <p class="muted">ab 28 Nächten</p>
+                <div class="price-line"><span>Preis p. P. / Nacht</span><strong>ab 20&nbsp;€</strong></div>
+                <div class="price-line"><span>Beispiel (4 Pers.)</span><strong>ab 80&nbsp;€ / Nacht</strong></div>
+                <p class="small">Individuelles Angebot · Staffelpreise</p>
+              </div>
+            </div>
           </div>
+
+          <p class="small mt-4">Hinweise: Endreinigung, Bettwäsche & Handtücher nach Absprache. Preise abhängig von Aufenthaltsdauer, Teamgröße und Saison.</p>
         </div>
       </section>
 
@@ -173,36 +246,44 @@
         <div class="container">
           <h2>Kontakt</h2>
           <p class="lead">Am schnellsten per WhatsApp oder Telefon – wir antworten fix.</p>
-          <div class="contact-ways">
-            <a class="btn" href="tel:+491718225923">📞 Anrufen</a>
-            <a class="btn" href="mailto:mietservice.penning@gmail.com">✉️ E-Mail</a>
-            <a class="btn" href="https://wa.me/491718225923">💬 WhatsApp</a>
+          <div class="contact-ways" role="list">
+            <a class="btn" href="tel:+491718225923" role="listitem">📞 Anrufen</a>
+            <a class="btn" href="mailto:mietservice.penning@gmail.com" role="listitem">✉️ E-Mail</a>
+            <a class="btn" href="https://wa.me/491718225923" role="listitem">💬 WhatsApp</a>
           </div>
 
           <!-- Kontaktformular mit Formspree -->
-          <form class="mt-4" action="https://formspree.io/f/xyzpqqlg" method="POST">
-            <label for="name">Name</label>
+          <!-- Tipp: ersetze die action-URL mit deiner echten Formspree-ID -->
+          <form class="mt-4" action="https://formspree.io/f/xyzpqqlg" method="POST" id="fs-form">
+            <label for="name">Name *</label>
             <input id="name" name="name" required placeholder="Ihr Name" />
 
             <label for="firma">Firma (optional)</label>
             <input id="firma" name="firma" placeholder="Firmenname" />
 
-            <label for="personen">Personen & Zeitraum</label>
-            <input id="personen" name="personen" placeholder="z. B. 5 Personen, 14.–28. Sept" />
+            <label for="personen">Personen & Zeitraum *</label>
+            <input id="personen" name="personen" required placeholder="z. B. 4 Personen, 14.–28. Sept" />
 
-            <label for="email">E-Mail</label>
-            <input id="email" type="email" name="email" placeholder="name@firma.de" />
-            
-            <input type="hidden" name="_subject" value="Neue Anfrage von {{name}}" />
-            
+            <label for="email">E-Mail *</label>
+            <input id="email" type="email" name="email" required placeholder="name@firma.de" />
+
+            <label for="telefon">Telefon (empfohlen)</label>
+            <input id="telefon" name="telefon" placeholder="+49 ..." />
+
+            <!-- Formspree-Extras -->
+            <input type="hidden" name="_subject" value="[Mietservice Penning] Monteur-Anfrage" />
+            <input type="hidden" name="_replyto" value="" />
+            <input type="hidden" name="_template" value="table" />
+
             <label for="nachricht">Nachricht</label>
-            <textarea id="nachricht" name="nachricht" placeholder="Ihre Anforderungen"></textarea>
+            <textarea id="nachricht" name="nachricht" placeholder="Ihre Anforderungen (z. B. separate Zimmer, Parkplatz, Rechnungsdetails)"></textarea>
 
             <button class="btn" type="submit">Anfrage senden</button>
+            <div id="form-success" class="notice" role="status">✅ Vielen Dank! Ihre Anfrage wurde gesendet. Wir melden uns kurzfristig.</div>
           </form>
 
           <div class="mt-8">
-            <iframe src="https://www.google.com/maps?q=Weener&output=embed" width="100%" height="280" style="border:0; border-radius:14px" loading="lazy"></iframe>
+            <iframe title="Karte Möhlenwarf" src="https://www.google.com/maps?q=Möhlenwarf,Weener&output=embed" width="100%" height="280" style="border:0; border-radius:14px" loading="lazy"></iframe>
           </div>
         </div>
       </section>
@@ -237,13 +318,43 @@
     </footer>
 
     <script>
+      // Mobile Menü
       const hamburger = document.getElementById('hamburger');
       const menu = document.getElementById('menu');
       hamburger?.addEventListener('click', () => {
         const open = menu.classList.toggle('open');
         hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
+
+      // Footer Jahr
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Formspree: reply-to auf eingetragene E-Mail setzen + Erfolgsmeldung zeigen
+      const form = document.getElementById('fs-form');
+      const success = document.getElementById('form-success');
+      form?.addEventListener('submit', function(e) {
+        const reply = form.querySelector('input[name="_replyto"]');
+        const email = document.getElementById('email')?.value || '';
+        if (reply) reply.value = email;
+      });
+
+      // Zeige Erfolgsmeldung nach Redirect-freiem Submit (XHR)
+      // Optional: AJAX Submit, falls Formspree-Plan es erlaubt
+      form?.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = new FormData(form);
+        try {
+          const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }});
+          if (res.ok) {
+            success?.classList.add('show');
+            form.reset();
+          } else {
+            alert('Leider gab es ein Problem beim Senden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch.');
+          }
+        } catch (err) {
+          alert('Netzwerkfehler – bitte später erneut versuchen oder direkt anrufen.');
+        }
+      });
     </script>
   </body>
 </html>
