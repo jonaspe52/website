@@ -347,6 +347,8 @@
         const el = document.getElementById('calendar');
         if (el && window.FullCalendar) {
           const calendar = new FullCalendar.Calendar(el, {
+            // WICHTIG: Plugin registrieren, sonst werden Google-Events nicht geladen
+            plugins: [ FullCalendar.GoogleCalendar ],
             timeZone: 'Europe/Berlin',
             locale: 'de',
             firstDay: 1,
@@ -357,15 +359,15 @@
             eventDisplay: 'background',
             eventBackgroundColor: '#b0c4de',
             googleCalendarApiKey: 'AIzaSyDIaH92Gf4bMfJZFCLgLtiq_auqhog2_dU',
-            eventSources: [{ googleCalendarId: '3e61916ae41e47ac40c64d1bb49e647f623c87315698e884048122fc252c19dc@group.calendar.google.com' }],
+            // eine Event-Quelle: öffentlicher Google-Kalender
+            events: { googleCalendarId: '3e61916ae41e47ac40c64d1bb49e647f623c87315698e884048122fc252c19dc@group.calendar.google.com' },
             eventClick: (info) => { info.jsEvent.preventDefault(); } // keine Popups
           });
-          calendar.render();
+          try { calendar.render(); } catch (e) { el.innerHTML = '<div style="padding:12px;color:#b00020;">Kalender konnte nicht geladen werden. Bitte API-Key/Kalender-ID prüfen.</div>'; }
         }
       });
     </script>
 
-    <!-- Deine bestehenden Skripte -->
     <script>
       // Mobile Menü
       const hamburger = document.getElementById('hamburger');
