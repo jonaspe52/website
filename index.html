@@ -79,9 +79,7 @@
       textarea { min-height: 120px; resize: vertical; }
       button[type="submit"] { font-size: 18px; padding: 14px; background: var(--brand); color: white; border: none; cursor: pointer; border-radius: 12px; }
       button[type="submit"]:hover { background: var(--brand-2); }
-      @media (max-width: 600px) {
-        button[type="submit"] { width: 100%; } /* full-width on phones so it's always visible and easy to tap */
-      }
+      @media (max-width: 600px) { button[type="submit"] { width: 100%; } }
 
       .notice { background: #f3fbf6; border: 1px solid #d6f3e4; padding: 12px 14px; border-radius: 12px; color: #0c7a52; display:none; margin-top: 12px; }
       .notice.show { display:block; }
@@ -101,6 +99,13 @@
     </style>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+    <style>
+      /* FullCalendar Hintergrundevents weicher darstellen */
+      .fc .fc-bg-event { opacity: .35; }
+    </style>
 
     <!-- JSON-LD for LodgingBusiness / short -->
     <script type="application/ld+json">
@@ -140,6 +145,7 @@
             <a href="#home">Home</a>
             <a href="#unterkuenfte">Unterkünfte</a>
             <a href="#preise">Preise</a>
+            <a href="#verfuegbarkeit">Verfügbarkeit</a>
             <a href="#ueberuns">Über uns</a>
             <a href="#kontakt">Kontakt</a>
             <a href="#impressum">Impressum</a>
@@ -160,7 +166,7 @@
       <section id="unterkuenfte" class="section">
         <div class="container">
           <h2>Unsere Unterkünfte</h2>
-          <p class="lead">Gemütlich, sauber & komplett ausgestattet – ideal für Teams und Handwerker.</p>
+        <p class="lead">Gemütlich, sauber & komplett ausgestattet – ideal für Teams und Handwerker.</p>
 
           <div class="badges" aria-label="Ausstattung">
             <span class="badge">🔥 Ofen</span>
@@ -241,6 +247,15 @@
         </div>
       </section>
 
+      <!-- Verfügbarkeitskalender -->
+      <section id="verfuegbarkeit" class="section">
+        <div class="container">
+          <h2>Verfügbarkeit</h2>
+          <p class="lead">Belegte Tage sind ausgegraut.</p>
+          <div id="calendar" style="background:#fff;border:1px solid #eee;border-radius:14px;padding:12px;"></div>
+        </div>
+      </section>
+
       <section id="ueberuns" class="section">
         <div class="container">
           <h2>Über uns</h2>
@@ -259,7 +274,6 @@
           </div>
 
           <!-- Kontaktformular mit Formspree -->
-          <!-- Tipp: ersetze die action-URL mit deiner echten Formspree-ID -->
           <form class="mt-4" action="https://formspree.io/f/xyzpqqlg" method="POST" id="fs-form">
             <label for="name">Name *</label>
             <input id="name" name="name" required placeholder="Ihr Name" />
@@ -323,6 +337,35 @@
       </div>
     </footer>
 
+    <!-- FullCalendar JS + Google Calendar plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
+
+    <!-- Init Verfügbarkeitskalender -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const el = document.getElementById('calendar');
+        if (el && window.FullCalendar) {
+          const calendar = new FullCalendar.Calendar(el, {
+            timeZone: 'Europe/Berlin',
+            locale: 'de',
+            firstDay: 1,
+            initialView: 'dayGridMonth',
+            height: 'auto',
+            headerToolbar: { left: 'prev,next today', center: 'title', right: '' },
+            displayEventTime: false,
+            eventDisplay: 'background',
+            eventBackgroundColor: '#b0c4de',
+            googleCalendarApiKey: 'AIzaSyDIaH92Gf4bMfJZFCLgLtiq_auqhog2_dU',
+            eventSources: [{ googleCalendarId: '3e61916ae41e47ac40c64d1bb49e647f623c87315698e884048122fc252c19dc@group.calendar.google.com' }],
+            eventClick: (info) => { info.jsEvent.preventDefault(); } // keine Popups
+          });
+          calendar.render();
+        }
+      });
+    </script>
+
+    <!-- Deine bestehenden Skripte -->
     <script>
       // Mobile Menü
       const hamburger = document.getElementById('hamburger');
